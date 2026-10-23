@@ -1,0 +1,39 @@
+# Cut strategies across the three generated families, three seeds each (360 runs; roughly
+# an hour on a laptop, mostly GMI on set cover). Interrupt and continue with --resume.
+#   python run.py bench configs/families.toml
+
+name = "families"
+description = "Baseline cut families vs. the example c-MIR approach on knapsack, set cover and facility location."
+
+strategies = ["backend", "none", "gmi", "cover", "gmi+cover", "cmir", "gmi+cmir", "backend+cmir"]
+branching = ["default"]
+seeds = [0, 1, 2]
+time_limit = 120
+baseline = "none"
+reference = "backend"
+
+[solver]
+Threads = 1
+MIPGap = 0
+
+[cut_options]
+root_rounds = 10
+max_cuts_per_round = 50
+
+[[scenarios]]
+family = "knapsack"
+count = 5
+seed = 200
+params = { n = 80, m = 10 }
+
+[[scenarios]]
+family = "set_cover"
+count = 5
+seed = 200
+params = { rows = 200, cols = 600, density = 0.03, max_cost = 3 }
+
+[[scenarios]]
+family = "facility_location"
+count = 5
+seed = 200
+params = { facilities = 40, customers = 100 }

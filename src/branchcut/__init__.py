@@ -1,3 +1,3 @@
-"""Composable infrastructure for branch-and-cut experiments."""
+"""Benchmarking suite for cutting planes and branching rules on Gurobi."""
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
