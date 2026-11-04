@@ -1,0 +1,28 @@
+# Small MIPLIB 2017 benchmark-set instances. Download them first:
+#   python run.py fetch-miplib gen-ip002 gen-ip054 pk1 neos5 timtab1 glass4 mas74 mas76 neos-911970 n5-3
+#   python run.py bench configs/miplib.toml
+
+name = "miplib"
+description = "Baseline cut families and approaches on small MIPLIB 2017 benchmark instances."
+
+strategies = ["backend", "none", "gmi", "cover", "gmi+cover", "cmir"]
+branching = ["default"]
+seeds = [0]
+time_limit = 300
+baseline = "none"
+reference = "backend"
+keep_logs = true
+
+[solver]
+Threads = 1
+MIPGap = 1e-4
+
+[cut_options]
+root_rounds = 10
+max_cuts_per_round = 50
+max_tableau_size = 2e7      # GMI skips its tableau above rows x columns
+
+[[scenarios]]
+family = "miplib"
+names = ["gen-ip002", "gen-ip054", "pk1", "neos5", "timtab1", "glass4", "mas74", "mas76",
+         "neos-911970", "n5-3"]

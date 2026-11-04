@@ -1,0 +1,42 @@
+# Quick end-to-end check of the whole suite (well under a minute).
+#   python run.py bench configs/smoke.toml
+
+name = "smoke"
+description = "Small instances from each generated family; every baseline, the example approaches, and a variant."
+
+strategies = ["backend", "none", "gmi", "cover", "gmi+cover", "cmir", "gmi_3_rounds", "backend+cmir"]
+branching = ["default", "objective_priority"]
+seeds = [0]
+time_limit = 30
+baseline = "none"           # "vs baseline" ratios are relative to this strategy
+reference = "backend"       # its optimum is the correctness reference
+
+[solver]                    # Gurobi parameters for every run
+Threads = 1
+MIPGap = 0
+
+[cut_options]               # defaults for every strategy (see configs/README.md)
+root_rounds = 10
+max_cuts_per_round = 50
+
+[variants.gmi_3_rounds]     # a named strategy: same generator, different settings
+cuts = "gmi"
+cut_options = { root_rounds = 3 }
+
+[[scenarios]]
+family = "knapsack"
+count = 3
+seed = 100
+params = { n = 40, m = 5 }
+
+[[scenarios]]
+family = "set_cover"
+count = 2
+seed = 0
+params = { rows = 100, cols = 300, density = 0.05, max_cost = 3 }
+
+[[scenarios]]
+family = "facility_location"
+count = 2
+seed = 0
+params = { facilities = 10, customers = 30 }
