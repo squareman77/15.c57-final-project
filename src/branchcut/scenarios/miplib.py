@@ -48,8 +48,8 @@ def fetch(names, directory: str | Path, overwrite: bool = False, progress=print)
     return paths
 
 
-def instance(name: str, directory: str | Path) -> Instance:
+def instance(name: str, directory: str | Path, family: str = "miplib") -> Instance:
     path = Path(directory) / f"{name}.mps.gz"
     if not path.exists():
         raise FileNotFoundError(f"{path} is missing; download it with: python run.py fetch-miplib {name}")
-    return Instance(name, "miplib", "miplib2017", str(path))
+    return Instance(name, family, "miplib2017", str(path))

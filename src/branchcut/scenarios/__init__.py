@@ -30,7 +30,8 @@ def build_instances(specs: Iterable[Mapping[str, Any]], data_dir: str | Path = "
                 names += miplib.benchmark_names(spec.pop("list"))
             limit = spec.pop("limit", None)
             directory = spec.pop("directory", data_dir / "miplib")
-            instances += [miplib.instance(n, directory) for n in names[:limit]]
+            label = spec.pop("label", "miplib")
+            instances += [miplib.instance(n, directory, label) for n in names[:limit]]
         elif family == "files":
             instances += sources.from_files(spec.pop("paths"), spec.pop("label", "files"))
         elif family == "manifest":

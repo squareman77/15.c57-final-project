@@ -43,6 +43,7 @@ params = { n = 60, m = 8 }          # generator arguments (see src/branchcut/sce
 [[scenarios]]
 family = "miplib"                   # fetch first: python run.py fetch-miplib NAME ...
 names = ["pk1", "gen-ip054"]        # and/or list = "data/benchmark-v2.test", limit = 20
+label = "easy"                      # family name in reports (default "miplib")
 
 [[scenarios]]
 family = "files"                    # any .mps / .mps.gz / .lp files
