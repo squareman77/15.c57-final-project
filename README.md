@@ -77,6 +77,23 @@ Each run records status, objective, best bound, gap, runtime (wall clock, includ
 
 It also breaks results down by family and by instance. Definitions are at the bottom of every summary.
 
+## Shared benchmark settings
+
+Every result in the report must use these settings, so runs from different teammates are comparable. They are set in [configs/miplib_main.toml](configs/miplib_main.toml). To benchmark a new approach, copy that file and change only `name` and `strategies`.
+
+| setting | value |
+|---|---|
+| instances | the 30 MIPLIB 2017 instances in `configs/miplib_main.toml` (10 easy, 10 borderline, 10 unsolvable within 600 s) |
+| time limit | `time_limit = 600` (seconds per run) |
+| threads | `Threads = 1` |
+| optimality gap | `MIPGap = 1e-4` (0.01 %) |
+| seeds | `seeds = [0, 1, 2]` |
+| root cut rounds | `root_rounds = 10`, `max_cuts_per_round = 50` |
+| branching | `default` (unless branching is what is being studied) |
+| baselines | `backend`, `none`, `gmi`, `cover`, `gmi+cover`; `baseline = "none"`, `reference = "backend"` |
+| Gurobi | `gurobipy==13.0.3` |
+| hardware | MIT Engaging, partition `mit_normal`, AMD EPYC 9474F nodes only: `#SBATCH --exclude=node[1620-1625],node[2502-2513],node[2704-2705]`, 1 CPU per job |
+
 ## Commands
 
 | command | what it does |
