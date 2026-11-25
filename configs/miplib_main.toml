@@ -1,0 +1,44 @@
+# Main benchmark: 30 MIPLIB 2017 benchmark-set instances in three difficulty thirds.
+# Thirds were chosen by a 600 s screening with built-in cuts and presolve off (strategy "none"):
+#   easy        "none" solves in about 10-120 s
+#   borderline  "none" solves only slowly (150-400 s), or only Gurobi's own cuts solve it in 600 s
+#   unsolvable  neither solves it in 600 s, but both find a solution; compare final gaps
+# Download the instances first:
+#   python run.py fetch-miplib eil33-2 qap10 air05 pk1 rmatr100-p10 ns1208400 sct2 neos-5107597-kakapo glass4 graphdraw-domain rocI-4-11 icir97_tension mas74 neos5 bnatt400 gen-ip002 binkar10_1 rococoC10-001000 timtab1 csched007 reblock115 neos-3627168-kasai ic97_potential seymour ran14x18-disj-8 cost266-UUE assign1-5-8 50v-10 neos-4954672-berkel lotsize
+#   python run.py bench configs/miplib_main.toml
+
+name = "miplib_main"
+description = "Baseline cut families on 30 MIPLIB 2017 instances: 10 easy, 10 borderline, 10 unsolvable in 600 s."
+
+strategies = ["backend", "none", "gmi", "cover", "gmi+cover"]
+branching = ["default"]
+seeds = [0, 1, 2]
+time_limit = 600
+baseline = "none"
+reference = "backend"
+
+[solver]
+Threads = 1
+MIPGap = 1e-4
+
+[cut_options]
+root_rounds = 10
+max_cuts_per_round = 50
+
+[[scenarios]]
+family = "miplib"
+label = "easy"
+names = ["eil33-2", "qap10", "air05", "pk1", "rmatr100-p10", "ns1208400", "sct2",
+         "neos-5107597-kakapo", "glass4", "graphdraw-domain"]
+
+[[scenarios]]
+family = "miplib"
+label = "borderline"
+names = ["rocI-4-11", "icir97_tension", "mas74", "neos5", "bnatt400", "gen-ip002",
+         "binkar10_1", "rococoC10-001000", "timtab1", "csched007"]
+
+[[scenarios]]
+family = "miplib"
+label = "unsolvable"
+names = ["reblock115", "neos-3627168-kasai", "ic97_potential", "seymour", "ran14x18-disj-8",
+         "cost266-UUE", "assign1-5-8", "50v-10", "neos-4954672-berkel", "lotsize"]
