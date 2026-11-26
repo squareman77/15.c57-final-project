@@ -1,0 +1,16 @@
+{
+  "created": "2026-11-25T21:51:57-0500",
+  "branchcut": "0.2.0",
+  "solver": "gurobi",
+  "solver_version": "13.0.3",
+  "python": "3.12.1",
+  "platform": "Linux-4.18.0-553.147.1.el8_10.x86_64-x86_64-with-glibc2.28",
+  "git_commit": "354ab182c6d0041b7a5ead4c5ce0a988e8aed53a",
+  "git_dirty": false,
+  "approaches": {
+    "default": {
+      "origin": "gurobi",
+      "sha256": null
+    }
+  }
+}
